@@ -1,45 +1,56 @@
-# gym-ae5117
-This repo provides two training environment for **AE5117: Intelligent Robotics**'s course project. 
-- TriPuller-v0
-- TwoCarrier-v0
+# gym-explore
+
+This project is originated from a course project which was introduced in
+University of Cincinnati's
+[AEEM6117](https://www.coursicle.com/uc/courses/AEEM/6117/) in 2021 Spring.
+
+Objective of this project is to investigate RL agents' exploration strategies.
+This repo contains a personal collection of 
+[OpenAI Gym](https://github.com/openai/gym) like environemnt rendered with 
+[Matplotlib](https://matplotlib.org/) only.
+
+- Escaper-v0
 
 # Installation
+
 ## Pre-requisites
+
 - [Python3](https://www.python.org/)
-> The environments were tested under Python 3.6.9, but Python 2 should be OK.
+
+> The environments were tested in Python 3.10.8. Other versions of Python may work as well.
+
 - [pip](https://pypi.org/project/pip/)
 - [Git](https://git-scm.com/)
-- For **Ubuntu** or **RaspberryPi** users, bring up a terminal and run
-```console
-sudo apt install python3-dev python3-pip git
-```
-## Installation
-1. Bring up a terminal console  
-2. `cd` *`desired_directory/`* 
-3. `git clone https://github.com/IRASatUC/gym-ae5117.git`
-4. `cd gym-ae5117`
-5. `pip install -e .`
-> May update installation guide for Windows and Mac. 
+- [Gymnasium](https://github.com/Farama-Foundation/Gymnasium)
 
-## Quick Start
-### TriPuller-v0
-![TriPuller](https://github.com/IRASatUC/gym-ae5117/blob/main/images/TriPuller.png)
-```python
-import gym
-env = gym.make('gym_ae5117:TriPuller-v0')
-env.reset()
-for _ in range(100):
-    env.render()
-    env.step(env.action_space.sample())
+## Installation (Linux & MacOS)
+
+```shell
+git clone https://github.com/linzhank/gym-explore.git
+pip install -e gym-explore
 ```
 
-### TwoCarrier-v0
-![TwoCarrier](https://github.com/IRASatUC/gym-ae5117/blob/main/images/TwoCarrier.png)
+# Usage
+
 ```python
-import gym
-env = gym.make('gym_ae5117:TwoCarrier-v0')
-env.reset()
-for _ in range(100):
-    env.render()
-    env.step(env.action_space.sample())
+import gymnasium as gym
+import gym_explore
+
+
+env = gym.make('escaper-v0', render_mode="human", continuous=False)
+obs, info = env.reset()
+for i in range(1000):
+    obs, rew, term, trun, info = env.step(env.action_space.sample())
+    print(obs, rew, term, trun, info)
+    if term or trun:
+        env.reset()
+env.close()
 ```
+
+## TODO:
+- [x] Fix action clip (under `continuous` setting).
+- [x] Use same figure window for every episode.
+- [x] Add time limit and truncated condition.
+- [x] Add heading arrow.
+- [ ] Add a "stay" mode to `reset()`
+- [ ] Add rgb_array rendering mode.
