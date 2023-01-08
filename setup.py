@@ -1,11 +1,8 @@
 from setuptools import setup
 
-setup(
-    name='gym_explore',
-    version='0.0.1',
-    install_requires=[
-        'gymnasium>=0.27.0',
-        'numpy>=1.23',
-        'matplotlib>=3.6.2',
-    ]
+setup(name='gym_ae5117',
+      version='0.0.1',
+      install_requires=['gym',
+                        'numpy',
+                        'matplotlib']
 )
